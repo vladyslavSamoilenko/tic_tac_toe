@@ -64,6 +64,7 @@ public class Main {
     }
 
     private static void makeComputerMowe(char[][] gameTable) {
+        System.out.println("Computer makes move");
         Random random = new Random();
         while (true) {
             int row = random.nextInt(3);
@@ -80,7 +81,7 @@ public class Main {
     private static boolean isDraw(char[][] gameTable) {
         for(int i = 0; i < gameTable.length ; i++){
             for(int j = 0; j < gameTable[i].length; j ++){
-                if (gameTable[i][j] == ' '){
+                if (gameTable[i][j] == ' ' ){
                     if(!isComputerWon(gameTable) || !isUserWin(gameTable)){
                         return false;
                     }
