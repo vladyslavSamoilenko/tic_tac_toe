@@ -78,7 +78,16 @@ public class Main {
 
 
     private static boolean isDraw(char[][] gameTable) {
-        return false;
+        for(int i = 0; i < gameTable.length ; i++){
+            for(int j = 0; j < gameTable[i].length; j ++){
+                if (gameTable[i][j] == ' '){
+                    if(!isComputerWon(gameTable) || !isUserWin(gameTable)){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     private static boolean isUserWin(char[][] gameTable) {
@@ -117,33 +126,38 @@ public class Main {
         System.out.println("Please type number between 1 and 9:");
         String number = new Scanner(System.in).nextLine();
             if (number.length() == 1) {
-                char ch = number.charAt(0);
-                if (Character.isDigit(ch)) {
-                    if (ch >= '1' && ch <= '9') {
-                        char[][] mappingTable = {{'7', '8', '9'},
-                                {'4', '5', '6'},
-                                {'1', '2', '3'}};
-                        boolean flag = true;
-                        for (int i = 0; i < mappingTable.length; i++) {
-                            for (int j = 0; j < mappingTable[i].length; j++) {
-                                if (mappingTable[i][j] == ch) {
-                                    if (gameTable[i][j] == ' ') {
-                                        gameTable[i][j] = 'X';
-                                        return;
-                                    } else {
-                                        System.out.println("Can't make a move, because the cell is not free! Try again!");
-                                        flag = false;
-                                        break;
-                                    }
-                                }
-                            }
-                            if (!flag) {
-                                break;
-                            }
-                        }
+                char digit = number.charAt(0);
+                if (Character.isDigit(digit)) {
+                    if (digit >= '1' && digit <= '9') {
+                        if (makeUserMoweToCell(gameTable, digit)) return;
                     }
                 }
             }
         }
+    }
+
+    private static boolean makeUserMoweToCell(char[][] gameTable, char digit) {
+        char[][] mappingTable = {{'7', '8', '9'},
+                {'4', '5', '6'},
+                {'1', '2', '3'}};
+        boolean flag = true;
+        for (int i = 0; i < mappingTable.length; i++) {
+            for (int j = 0; j < mappingTable[i].length; j++) {
+                if (mappingTable[i][j] == digit) {
+                    if (gameTable[i][j] == ' ') {
+                        gameTable[i][j] = 'X';
+                        return true;
+                    } else {
+                        System.out.println("Can't make a move, because the cell is not free! Try again!");
+                        flag = false;
+                        break;
+                    }
+                }
+            }
+            if (!flag) {
+                break;
+            }
+        }
+        return false;
     }
 }
