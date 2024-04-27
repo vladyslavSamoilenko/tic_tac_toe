@@ -64,12 +64,12 @@ public class Main {
     }
 
     private static void makeComputerMowe(char[][] gameTable) {
-        System.out.println("Computer makes move");
         Random random = new Random();
         while (true) {
             int row = random.nextInt(3);
             int col = random.nextInt(3);
             if (gameTable[row][col] == ' ') {
+                System.out.println("Computer makes move");
                 gameTable[row][col] = 'O';
                 return;
             }
